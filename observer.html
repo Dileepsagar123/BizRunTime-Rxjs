@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="rx.all.js"></script>
+    <script>
+       let observable = Rx.Observable;
+        var observer = {
+            next: x => console.log('Observer got a next value: ' + x),
+            error: err => console.error('Observer got an error: ' + err),
+            complete: () => console.log('Observer got a complete notification'),
+        };
+        observable.subscribe(val => console.log(val));
+    </script>
+</head>
+<body>
+    <button onclick="observer;">This is Observer</button>
+</body>
+</html>

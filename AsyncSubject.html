@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        //The AsyncSubject is a variant where only the last value of the Observable execution is sent to its observers, and only when the execution completes.
+        var subject = new Rx.AsyncSubject();
+
+        subject.subscribe({
+        next: (v) => console.log('observerA: ' + v)
+        });
+
+        subject.next(1);
+        subject.next(2);
+        subject.next(3);
+        subject.next(4);
+
+        subject.subscribe({
+        next: (v) => console.log('observerB: ' + v)
+        });
+
+        subject.next(5);
+        subject.complete();
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

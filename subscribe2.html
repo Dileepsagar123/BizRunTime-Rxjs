@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="rx.all.js"></script>
+    <script>
+        var observable1 = Rx.Observable.interval(1000);
+        var observable2 = Rx.Observable.interval(400);
+        var observable3 = Rx.Observable.interval(2000);
+        
+        var subscription = observable1.subscribe(x => console.log('first: ' + x));
+        var childSubscription = observable2.subscribe(x => console.log('second: ' + x));
+        var childSubscription1 = observable3.subscribe(x => console.log('third: ' + x));
+        subscription.add(childSubscription,childSubscription1);
+        
+        setTimeout(() => {
+        // Unsubscribes BOTH subscription and childSubscription
+        subscription.unsubscribe();
+        }, 1000);
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

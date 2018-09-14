@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./rx.all.js"></script>
+    
+</head>
+<body>
+        <textarea></textarea>
+        <p>
+          <strong>Text:</strong>
+          <code id="text"></code>
+        </p>
+        <script>
+                const textOutput = document.getElementById('text');
+                const area = document.querySelector('textarea')
+                const textOutput1 = document.getElementById("text2");
+                const area1 = document.getElementById("textOutput1");
+        
+                const content$ = Rx.Observable
+                .fromEvent(area, 'keyup') // each `keyup` throws an event on the stream
+                // shows the content of the text area concatenated with the string ‘Fixed text’
+                .map(e => e.target.value.trim() + ' Fixed text')
+        
+                content$
+                .subscribe(text => { console.log(`The textarea content is: ${text}`)
+
+                    textOutput.innerText = text;
+
+                })
+            </script>
+</body>
+</html>

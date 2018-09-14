@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./rx.all.js"></script>
+    <script>
+       var observable = Rx.Observable.create(function subscribe(observer) {
+        // Keep track of the interval resource
+        var intervalID = setInterval(() => {
+        observer.next('hi');
+       
+        }, 1000);
+
+        // Provide a way of canceling and disposing the interval resource
+         return function unsubscribe() {
+        clearInterval(intervalID);
+        };
+        });
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

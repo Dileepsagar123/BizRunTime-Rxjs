@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/4.1.0/rx.all.js"></script>
+    <script>
+        const countdownSeconds = 10;
+        const setHTML = id => val => (document.getElementById(id).innerHTML = val);
+        const pauseButton = document.getElementById('pause');
+        const resumeButton = document.getElementById('resume');
+        const interval$ = interval(1000).pipe(mapTo(-1));
+
+        const pause$ = fromEvent(pauseButton, 'click').pipe(mapTo(false));
+        const resume$ = fromEvent(resumeButton, 'click').pipe(mapTo(true));
+
+        const timer$ = merge(pause$, resume$)
+        .pipe(
+            startWith(true),
+            // if timer is paused return empty observable
+            switchMap(val => (val ? interval$ : empty())),
+            scan((acc, curr) => (curr ? curr + acc : acc), countdownSeconds),
+            takeWhile(v => v >= 0)
+        )
+        .subscribe(setHTML('remaining'));
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

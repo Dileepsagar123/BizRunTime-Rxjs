@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+   
+</head>
+<body>
+        <script src="./rx.all.js"></script>
+    <script>
+        var timer1 = Rx.Observable.interval(1000).take(10);
+        var timer2 = Rx.Observable.interval(2000).take(6);
+        var timer3 = Rx.Observable.interval(500).take(10);
+        var concurrent = 2; // the argument
+        var merged = Rx.Observable.merge(timer1, timer2, timer3, concurrent);
+        merged.subscribe(x => console.log(x));    
+    </script>
+     
+</body>
+</html>

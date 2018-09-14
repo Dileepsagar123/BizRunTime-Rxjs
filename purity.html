@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/4.1.0/rx.all.js"></script>
+    <script>
+    /*    What makes RxJS powerful is its ability to produce values using pure functions. That means your code is less prone to errors.
+Normally you would create an impure function, where other pieces of your code can mess up your state.*/
+var count = 0;
+var button = document.querySelector('button');
+button.addEventListener('click', () => console.log(`Clicked ${++count} times`));
+
+//Using RxJS you isolate the state.
+var button = document.querySelector('button');
+Rx.Observable.fromEvent(button, 'click')
+  .scan(count => count + 1, 0)
+  .subscribe(count => console.log(`Clicked ${count} times`));
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

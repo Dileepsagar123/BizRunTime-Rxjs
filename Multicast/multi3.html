@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../rx.all.js"></script>
+    <script>
+        //emit every 2 seconds, take 5
+        const source = Rx.Observable.interval(2000).take(5);
+        
+        //example with ReplaySubject
+        const example = source
+        //since we are multicasting below, side effects will be executed once
+        .tap(x => console.log('Side Effect #2'+x))
+        .mapTo('Result Two!');
+        //can use any type of subject
+        const multi = example.pipe(multicast(() => new ReplaySubject(5)));
+        //subscribe subject to source
+        multi.connect();
+
+        setTimeout(() => {
+        /*
+        subscriber will receieve all previous values on subscription because
+        of ReplaySubject
+        */
+        const subscriber = multi.subscribe(val => console.group(val));
+        }, 5000);
+        
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
